@@ -89,27 +89,30 @@
 				this.defaultValue = typeof default !== 'undefined' ? default : 0;
 			}
 
-			this.createGaugeDash = function(){
+			this.createDash = function(){
 				var paper = Raphael(this.startX, this.startY, this.size, this.size);
+				createCircle(paper);
+				createTickers(paper);
+				createPointer(paper);
+				createSpinner(paper);
+			}
+
+			createCircle = function(paper){
 				gaugeCircle = paper.circle(this.cx, this.cy, this.radius).attr("fill" : this.gaugeColor );
-				return gaugeCircle;
-				//FIXME: PASS IN PARAMETER
 			}
 
-			this.createTicker = function(gaugeDash){
-				var paper = Raphael(this.startX, this.startY, this.size, this.size);
-			// finish later
+			createTickers = function(paper){
+				paper.rect(
+
 			}
 
-			this.createPointer = function(){
-				var paper = Raphael(this.startX, this.startY, this.size, this.size);
+			createPointer = function(paper){
 			// finish later
 
-			this.createSpinner = function(){
-				var paper = Raphael(this.startX,this.startY, this.size, this.size);
+			createSpinner = function(paper){
 				var spinner = paper.circle(this.cx, this.cy, 6).attr{fill:this.spinnerFillColor, stroke: this.spinnerStrokeColor};
 				return spinner;
-			}
+				}
 			}
 
 			//create a property for each element of the gauge.
