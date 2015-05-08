@@ -1,0 +1,211 @@
+	<!DOCTYPE html>
+<html>
+	<head>
+	Raphael Test
+	<script type="text/javascript" src="jquery-1.11.2.min.js"></script>
+	</head>
+	<body>
+		<script type="text/javascript" src="https://raw.githubusercontent.com/DmitryBaranovskiy/raphael/master/raphael.js"></script>
+		<script type="text/javascript" src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+		<script type="text/javascript">
+
+		function Gauge(){
+
+			this.configure = function(configuration){
+				///idea!!!: preset settings also so you can change the way it looks.  Will also be a custom where you will be allowed to make your own selections
+
+				// this.config = configuration;
+
+				// this.config.startX = typeof configuration.startX !== 'undefined' ? configuration.startX : 0;
+				// this.config.startY = typeof configuration.startY !== 'undefined' ? configuration.startY : 0;
+
+				// this.config.size = configuration.size;
+
+				// this.config.cx = this.config.startX + this.config.size/2;
+				// this.config.cy = this.config.startY + this.config.size/2;
+				// this.config.radius = this.config.size*0.485;
+
+				// this.config.min = typeof configuration.min !== 'undefined' ? configuration.min : 0;
+				// this.config.max = typeof configuration.max !== 'undefined' ? configuration.max : 100;
+				// this.config.range = this.config.max - this.config.min;
+				
+				// this.config.majorTicker = typeof configuration.majorTicker !== 'undefined' ? configuration.majorTicker : 15;
+				// this.config.minorPerMajor = typeof configuration.minorTicker !== 'undefined' ? configuration.majorTicker : 1;
+				
+				// this.config.gaugeColor = typeof configuration.gaugeColor !== 'undefined' ? configuration.gaugeColor : "black";
+				// this.config.tickerColor = typeof configuration.tickerColor !== 'undefined' ? configuration.tickerColor : "#00FA9A";
+				// this.config.pointerColor = typeof configuration.pointerColor !== 'undefined' ? configuration.pointerColor : "#00FA9A";
+				// this.config.spinnerFillColor = typeof configuration.spinnerFillColor !== 'undefined' 
+				// 									  ? configuration.spinnerFillColor : "black";
+				// this.config.spinnerStrokeColor = typeof configuration.spinnerStrokeColor !== 'undefined' 
+				// 									  	? configuration.spinnerStrokeColor: "#00FA9A";
+
+				// this.config.totalDegrees = typeof configuration.totalDegrees !== 'undefined' && configuration.totalDegrees <= 360 
+				// 								  && 0 <= configuration.totalDegrees ? configuration.totalDegrees : 240;
+
+
+
+			}
+
+			this.setStartPoint = function(size, startX, startY){
+				this.startX = typeof startX !== 'undefined' ? startX : 0;
+				this.startY = typeof startY !== 'undefined' ? startY : 0; 
+				this.size = typeof size !== 'undefined' ? size : 100;
+				this.cx = startX + size / 2;
+				this.cy = startY + size / 2;
+				this.radius = size * 0.485;
+			}
+
+			this.setExtrema = function(min,max){
+				this.min = typeof min !== 'undefined' ? min : 0;
+				this.max = typeof max !== 'undefined' ? max : 100;
+				this.range = max - min;
+			}
+
+			this.setTickerSettings = function(majorTicker, minorPerMajor, tickerColor){
+				this.majorTicker = typeof majorTicker !== 'undefined' ? majorTicker : 15;
+				this.minorPerMajor = typeof minorPerMajor !== 'undefined' ? minorPerMajor : 1;
+				this.tickerColor = typeof tickerColor !== 'undefined' ? tickerColor : "#00FA9A";
+			}
+
+			this.setGaugeColor = function(color){
+				this.gaugeColor = typeof color !== 'undefined' ? color : "black";
+			}
+
+			this.setSpinnerColor = function(strokeColor,fillColor){
+				this.spinnerFillColor = typeof fillColor !== 'undefined' ? fillColor : "black";
+				this.spinnerStrokeColor = typeof strokeColor !== 'undefined' ? strokeColor : "#00FA9A"; 
+			}
+
+			this.setPointerColor = function(color){
+				this.pointercolor = typeof color !== 'undefined' ? color : "#00FA9A";
+			}
+
+			this.setTitle = function(title){
+				this.title = title;
+			}
+
+			this.setDefault = function(default){
+				this.defaultValue = typeof default !== 'undefined' ? default : 0;
+			}
+
+			this.createGaugeDash = function(){
+				var paper = Raphael(this.startX, this.startY, this.size, this.size);
+				gaugeCircle = paper.circle(this.cx, this.cy, this.radius).attr("fill" : this.gaugeColor );
+				return gaugeCircle;
+				//FIXME: PASS IN PARAMETER
+			}
+
+			this.createTicker = function(gaugeDash){
+				var paper = Raphael(this.startX, this.startY, this.size, this.size);
+			// finish later
+			}
+
+			this.createPointer = function(){
+				var paper = Raphael(this.startX, this.startY, this.size, this.size);
+			// finish later
+
+			this.createSpinner = function(){
+				var paper = Raphael(this.startX,this.startY, this.size, this.size);
+				var spinner = paper.circle(this.cx, this.cy, 6).attr{fill:this.spinnerFillColor, stroke: this.spinnerStrokeColor};
+				return spinner;
+			}
+			}
+
+			//create a property for each element of the gauge.
+
+///sample: data = {defaultValue : 0, values : []}
+			this.setValue = function(data){
+				if(data){
+
+					this.value = 0;
+
+					for (i=0; i < data.length(); i++){
+						this.value += data[i];
+					}
+					this.value = this.value/data.length();
+				}
+				else
+					this.value = this.defaultValue;
+			}
+
+			
+			this.draw() = function(data){
+				if(!this.currentState){
+					this.currentState = this.defaultValue;
+				}
+
+				this.setValue(data);
+
+
+				var dmRatio = 240/this.range;
+				var rotationValue = dmRatio*(this.value - this.currentState);
+				var rotationString = "r" + String(rotationValue) + "," + String(this.data.config.cx) + "," + String(this.data.config.cy);
+
+			}
+					
+
+
+
+			// rotationString = function(){
+			// 	if (!this.currentValue){
+			// 	}
+			// }
+
+			// this.draw = function()
+			// {
+			// 	if (this.config)
+			// 	{
+			// 		var paper = Raphael()
+			// 	}
+
+			// }
+				
+
+
+		}
+		
+		var paper = Raphael(10,50,320,200);
+
+		var gauge_circle = paper.circle(100,100,100);
+
+		gauge_circle.attr({fill:"#2E2E2E",stroke:"#FFF"});
+		
+
+		for (i=12; i<=120; i+=24){
+			paper.rect(99,20,2,7).transform("r" + String(i) + ",100,100").attr({fill:"#FFFFFF",stroke:"#FFFFFF"});
+			paper.rect(99,20,2,7).transform("r" + String(-i) + ",100,100").attr({fill:"#FFFFFF",stroke:"#FFFFFF"});
+		}
+		
+		for (i=0; i<=120; i+=24){
+			paper.rect(98.5, 6, 3, 21).transform("r"+String(i)+",100,100").attr({fill:"#FFFFFF",stroke:"#FFFFFF"});
+			paper.rect(98.5, 6, 3, 21).transform("r"+String(-i)+",100,100").attr({fill:"#FFFFFF",stroke:"#FFFFFF"});
+		}
+
+
+		
+		var marker = paper.path("M102,100 L98,100 L99,15 L101, 15  z ");
+		
+		marker.attr("fill", "#FF4000");
+		
+		var marker_circle = paper.circle(100, 100, 6);
+		marker_circle.attr("fill", "#FF4000");
+		marker_circle.attr("fill", "#FF4000");
+
+
+
+ 
+		function rotationstring(value, center_x,center_y){
+			var dm_ratio = 360.0/300.0; 
+			var rotation_value = value*dm_ratio;
+			var rotation_angle = String(rotation_value);
+			return "r" + rotation_angle + "," + String(center_x) + "," + String(center_y); 
+			}
+
+
+		marker.animate({transform:rotationstring(200, 100, 100)},3000);
+		
+
+		</script>
+	</body>
+</html>

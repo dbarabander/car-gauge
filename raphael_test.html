@@ -1,0 +1,51 @@
+	<!DOCTYPE html>
+<html>
+	<head>Raphael Test</head>
+	<body>
+		<script type="text/javascript" src="https://raw.githubusercontent.com/DmitryBaranovskiy/raphael/master/raphael.js"></script>
+		<script type="text/javascript">
+		
+		var paper = Raphael(10,50,320,200);
+
+		var gauge_circle = paper.circle(100,100,100);
+
+		gauge_circle.attr({fill:"#2E2E2E",stroke:"#FFF"});
+		
+
+		for (i=12; i<=120; i+=24){
+			paper.rect(99,20,2,7).transform("r" + String(i) + ",100,100").attr({fill:"#FFFFFF",stroke:"#FFFFFF"});
+			paper.rect(99,20,2,7).transform("r" + String(-i) + ",100,100").attr({fill:"#FFFFFF",stroke:"#FFFFFF"});
+		}
+		
+		for (i=0; i<=120; i+=24){
+			paper.rect(98.5, 6, 3, 21).transform("r"+String(i)+",100,100").attr({fill:"#FFFFFF",stroke:"#FFFFFF"});
+			paper.rect(98.5, 6, 3, 21).transform("r"+String(-i)+",100,100").attr({fill:"#FFFFFF",stroke:"#FFFFFF"});
+		}
+
+
+		
+		var marker = paper.path("M102,100 L98,100 L99,15 L101, 15  z ");
+		
+		marker.attr("fill", "#FF4000");
+		
+		var marker_circle = paper.circle(100, 100, 6);
+		marker_circle.attr("fill", "#FF4000");
+		marker_circle.attr("fill", "#FF4000");
+
+
+
+ 
+		function rotationstring(value, center_x,center_y){
+			var dm_ratio = 360.0/300.0; 
+			var rotation_value = value*dm_ratio;
+			var rotation_angle = String(rotation_value);
+			return "r" + rotation_angle + "," + String(center_x) + "," + String(center_y); 
+			}
+
+
+		marker.animate({transform:rotationstring(200, 100, 100)},3000);
+		
+
+		</script>
+	</body>
+</html>
