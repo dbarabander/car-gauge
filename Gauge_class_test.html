@@ -12,81 +12,54 @@
 		function Gauge(){
 
 			this.configure = function(configuration){
-				///idea!!!: preset settings also so you can change the way it looks.  Will also be a custom where you will be allowed to make your own selections
-
-				// this.config = configuration;
-
-				// this.config.startX = typeof configuration.startX !== 'undefined' ? configuration.startX : 0;
-				// this.config.startY = typeof configuration.startY !== 'undefined' ? configuration.startY : 0;
-
-				// this.config.size = configuration.size;
-
-				// this.config.cx = this.config.startX + this.config.size/2;
-				// this.config.cy = this.config.startY + this.config.size/2;
-				// this.config.radius = this.config.size*0.485;
-
-				// this.config.min = typeof configuration.min !== 'undefined' ? configuration.min : 0;
-				// this.config.max = typeof configuration.max !== 'undefined' ? configuration.max : 100;
-				// this.config.range = this.config.max - this.config.min;
 				
-				// this.config.majorTicker = typeof configuration.majorTicker !== 'undefined' ? configuration.majorTicker : 15;
-				// this.config.minorPerMajor = typeof configuration.minorTicker !== 'undefined' ? configuration.majorTicker : 1;
-				
-				// this.config.gaugeColor = typeof configuration.gaugeColor !== 'undefined' ? configuration.gaugeColor : "black";
-				// this.config.tickerColor = typeof configuration.tickerColor !== 'undefined' ? configuration.tickerColor : "#00FA9A";
-				// this.config.pointerColor = typeof configuration.pointerColor !== 'undefined' ? configuration.pointerColor : "#00FA9A";
-				// this.config.spinnerFillColor = typeof configuration.spinnerFillColor !== 'undefined' 
-				// 									  ? configuration.spinnerFillColor : "black";
-				// this.config.spinnerStrokeColor = typeof configuration.spinnerStrokeColor !== 'undefined' 
-				// 									  	? configuration.spinnerStrokeColor: "#00FA9A";
+			}
 
-				// this.config.totalDegrees = typeof configuration.totalDegrees !== 'undefined' && configuration.totalDegrees <= 360 
-				// 								  && 0 <= configuration.totalDegrees ? configuration.totalDegrees : 240;
-
-
-
+			f
+			setAssumed = function(att, def){
+				this.att = typeof att !== 'undefined' ? att : def;
 			}
 
 			this.setStartPoint = function(size, startX, startY){
-				this.startX = typeof startX !== 'undefined' ? startX : 0;
-				this.startY = typeof startY !== 'undefined' ? startY : 0; 
-				this.size = typeof size !== 'undefined' ? size : 100;
+				setAssumed(startX, 0);
+				setAssumed(startY, 0);
+				setAssumed(size, 100);
 				this.cx = startX + size / 2;
 				this.cy = startY + size / 2;
 				this.radius = size * 0.485;
 			}
 
 			this.setExtrema = function(min,max){
-				this.min = typeof min !== 'undefined' ? min : 0;
-				this.max = typeof max !== 'undefined' ? max : 100;
+				setAssumed(min, 0);
+				setAssumed(max, 100);
 				this.range = max - min;
 			}
 
 			this.setTickerSettings = function(majorTicker, minorPerMajor, tickerColor){
-				this.majorTicker = typeof majorTicker !== 'undefined' ? majorTicker : 15;
-				this.minorPerMajor = typeof minorPerMajor !== 'undefined' ? minorPerMajor : 1;
-				this.tickerColor = typeof tickerColor !== 'undefined' ? tickerColor : "#00FA9A";
+				setAssumed(majorTicker, 15);
+				setAssumed(minorPerMajor, 1);
+				setAssumed(tickerColor, "#00FA9A");
 			}
 
-			this.setGaugeColor = function(color){
-				this.gaugeColor = typeof color !== 'undefined' ? color : "black";
+			this.setGaugeColor = function(gaugeColor){
+				setAssumed(gaugeColor, "black");
 			}
 
-			this.setSpinnerColor = function(strokeColor,fillColor){
-				this.spinnerFillColor = typeof fillColor !== 'undefined' ? fillColor : "black";
-				this.spinnerStrokeColor = typeof strokeColor !== 'undefined' ? strokeColor : "#00FA9A"; 
+			this.setSpinnerColor = function(spinnerStrokeColor,spinnerFillColor){
+				setAssumed(spinnerFillColor, "black");
+				setAssumed(spinnerStrokeColor, "#00FA9A");
 			}
 
-			this.setPointerColor = function(color){
-				this.pointercolor = typeof color !== 'undefined' ? color : "#00FA9A";
+			this.setPointerColor = function(pointerColor){
+				setAssumed(pointerColor, "#00FA9A");
 			}
 
 			this.setTitle = function(title){
 				this.title = title;
 			}
 
-			this.setDefault = function(default){
-				this.defaultValue = typeof default !== 'undefined' ? default : 0;
+			this.setDefault = function(defaultValue){
+				setAssumed(defaultValue, 0);
 			}
 
 			this.createDash = function(){
