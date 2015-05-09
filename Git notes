@@ -1,0 +1,3 @@
+Git notes
+
+to clean files untracked by git clean -d -x -f

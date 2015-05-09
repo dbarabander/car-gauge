@@ -11,16 +11,18 @@
 
 		function Gauge(){
 
+
+
 			this.configure = function(configuration){
-				
+			//FIXME
 			}
 
-			f
+
 			setAssumed = function(att, def){
 				this.att = typeof att !== 'undefined' ? att : def;
 			}
 
-			this.setStartPoint = function(size, startX, startY){
+			this.setLocation = function(size, startX, startY){
 				setAssumed(startX, 0);
 				setAssumed(startY, 0);
 				setAssumed(size, 100);
@@ -35,10 +37,23 @@
 				this.range = max - min;
 			}
 
-			this.setTickerSettings = function(majorTicker, minorPerMajor, tickerColor){
+			this.setTickerSettings = function(majorTicker, minorPerMajor, tickerColor, 
+										      majorTickerWidth, majorTickerLength, 
+										      minorTickerWidth, minorTickerLength){
+				baseSize = this.size * 2 / 100;
+				baseMajLength = this.size * 21 / 100;
+				baseMinLength = this.size * 7 / 100;
 				setAssumed(majorTicker, 15);
 				setAssumed(minorPerMajor, 1);
 				setAssumed(tickerColor, "#00FA9A");
+				setAssumed(majorTickerWidth, baseSize);
+				setAssumed(minorTickerWidth, baseSize);
+				setAssumed(majorTickerLength, baseMajLength);
+				setAssumed(minorTickerWidth, baseMinLength);
+				this.totalTickers = this.majorTicker + this.majorTicker * this.minorPerMajor - 1;
+				this.tickersPerSect = this.majorTicker + this.minorPerMajor;
+				this.tickerAngle = 240/totalTickers;
+				this.tickerRadius = this.radius * 0.9;
 			}
 
 			this.setGaugeColor = function(gaugeColor){
@@ -65,26 +80,99 @@
 			this.createDash = function(){
 				var paper = Raphael(this.startX, this.startY, this.size, this.size);
 				createCircle(paper);
-				createTickers(paper);
+				createMinTickers(paper);
+				CreateMajTickers(paper);
 				createPointer(paper);
 				createSpinner(paper);
 			}
 
 			createCircle = function(paper){
-				gaugeCircle = paper.circle(this.cx, this.cy, this.radius).attr("fill" : this.gaugeColor );
+				var gaugeCircle = paper.circle(this.cx, this.cy, this.radius).attr("fill" : this.gaugeColor );
 			}
 
-			createTickers = function(paper){
-				paper.rect(
 
+
+			createMinTickers = function(paper){
+ 
+				for (i = -30; i <= 210; i+=this.tickerAngle){
+					var radiusVector = [this.tickerRadius * cos(i), this.tickerRadius * sin(i)];
+					var unitRadiusVector = [cos(i), sin(i)];
+
+					var point0 = [this.cx + radiusVector[0], this.cy + radiusVector[1]];
+					
+					var point1 = 
+						[
+						point1[0] - (this.minorTickerWidth / 2) * unitRadiusVector[1], 
+						point1[1] + (this.minorTickerWidth / 2) * unitRadiusVector[0]
+						];
+
+					var point2 = 
+						[
+						point2[0] + this.minorTickerLength * unitRadiusVector[0]
+						point2[1] + this.minorTickerLength * unitRadiusVector[1]
+						];
+
+					var point3 =
+						[
+						point3[0] + this.minorTickerWidth * unitRadiusVector[1],
+						point3[1] - this.minorTickerWidth * unitRadiusVector[0]
+						];
+
+					var point4 = 
+						[
+						point4[0] - this.minorTickerLength * unitRadiusVector[0],
+						point4[1] - this.minorTickerLength * unitRadiusVector[1]
+						];
+					var pathString = "M" + String(point0[0]) + "," + String(point0[1]) + "L" + String(point1[0]) + "," + String(point1[1]) + 
+									 "L" + String(point2[0]) + "," + String(point2[1]) + "L" + String(point3[0]) + "," + String(point3[1]) +
+								 	 "L" + String(point4[0]) + "," + String(point4[1]) + " z";
+					
+					paper.path(pathString);
+				}
+			}
+
+			createMajTickers = function(paper){
+				for (i = -30; i <= 210; i+=this.tickerAngle*this.tickersPerSect){
+					var radiusVector = [this.tickerRadius * cos(i), this.tickerRadius * sin(i)];
+					var unitRadiusVector = [cos(i), sin(i)];
+
+					var point0 = [this.cx + radiusVector[0], this.cy + radiusVector[1]];
+					
+					var point1 = 
+						[
+						point1[0] - (this.majorTickerWidth / 2) * unitRadiusVector[1], 
+						point1[1] + (this.majorTickerWidth / 2) * unitRadiusVector[0]
+						];
+
+					var point2 = 
+						[
+						point2[0] + this.majorTickerLength * unitRadiusVector[0]
+						point2[1] + this.majorTickerLength * unitRadiusVector[1]
+						];
+
+					var point3 =
+						[
+						point3[0] + this.majorTickerWidth * unitRadiusVector[1],
+						point3[1] - this.majorTickerWidth * unitRadiusVector[0]
+						];
+
+					var point4 = 
+						[
+						point4[0] - this.majorTickerLength * unitRadiusVector[0],
+						point4[1] - this.majorTickerLength * unitRadiusVector[1]
+						];
+					var pathString = "M" + String(point0[0]) + "," + String(point0[1]) + "L" + String(point1[0]) + "," + String(point1[1]) + 
+								 	 "L" + String(point2[0]) + "," + String(point2[1]) + "L" + String(point3[0]) + "," + String(point3[1]) +
+								 	 "L" + String(point4[0]) + "," + String(point4[1]) + " z";
+					
+					paper.path(pathString);
+				}
 			}
 
 			createPointer = function(paper){
 			// finish later
-
 			createSpinner = function(paper){
-				var spinner = paper.circle(this.cx, this.cy, 6).attr{fill:this.spinnerFillColor, stroke: this.spinnerStrokeColor};
-				return spinner;
+				var spinner = paper.circle(this.cx, this.cy, this.size*15/100).attr{fill:this.spinnerFillColor, stroke: this.spinnerStrokeColor};
 				}
 			}
 
