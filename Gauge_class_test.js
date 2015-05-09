@@ -1,14 +1,3 @@
-	<!DOCTYPE html>
-<html>
-	<head>
-	Raphael Test
-	<script type="text/javascript" src="jquery-1.11.2.min.js"></script>
-	</head>
-	<body>
-		<script type="text/javascript" src="https://raw.githubusercontent.com/DmitryBaranovskiy/raphael/master/raphael.js"></script>
-		<script type="text/javascript" src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-		<script type="text/javascript" src=""
-		<script type="text/javascript">
 
 		function Gauge(){
 
@@ -177,9 +166,6 @@
 				}
 			}
 
-			//create a property for each element of the gauge.
-
-///sample: data = {defaultValue : 0, values : []}
 			this.setValue = function(data){
 				if(data){
 
@@ -208,69 +194,26 @@
 				var rotationString = "r" + String(rotationValue) + "," + String(this.data.config.cx) + "," + String(this.data.config.cy);
 
 			}
-					
-
-
-
-			// rotationString = function(){
-			// 	if (!this.currentValue){
-			// 	}
-			// }
-
-			// this.draw = function()
-			// {
-			// 	if (this.config)
-			// 	{
-			// 		var paper = Raphael()
-			// 	}
-
-			// }
-				
-
 
 		}
 		
-		var paper = Raphael(10,50,320,200);
 
-		var gauge_circle = paper.circle(100,100,100);
-
-		gauge_circle.attr({fill:"#2E2E2E",stroke:"#FFF"});
+		// marker.attr("fill", "#FF4000");
 		
-
-		for (i=12; i<=120; i+=24){
-			paper.rect(99,20,2,7).transform("r" + String(i) + ",100,100").attr({fill:"#FFFFFF",stroke:"#FFFFFF"});
-			paper.rect(99,20,2,7).transform("r" + String(-i) + ",100,100").attr({fill:"#FFFFFF",stroke:"#FFFFFF"});
-		}
-		
-		for (i=0; i<=120; i+=24){
-			paper.rect(98.5, 6, 3, 21).transform("r"+String(i)+",100,100").attr({fill:"#FFFFFF",stroke:"#FFFFFF"});
-			paper.rect(98.5, 6, 3, 21).transform("r"+String(-i)+",100,100").attr({fill:"#FFFFFF",stroke:"#FFFFFF"});
-		}
-
-
-		
-		var marker = paper.path("M102,100 L98,100 L99,15 L101, 15  z ");
-		
-		marker.attr("fill", "#FF4000");
-		
-		var marker_circle = paper.circle(100, 100, 6);
-		marker_circle.attr("fill", "#FF4000");
-		marker_circle.attr("fill", "#FF4000");
+		// var marker_circle = paper.circle(100, 100, 6);
+		// marker_circle.attr("fill", "#FF4000");
+		// marker_circle.attr("fill", "#FF4000");
 
 
 
  
-		function rotationstring(value, center_x,center_y){
-			var dm_ratio = 360.0/300.0; 
-			var rotation_value = value*dm_ratio;
-			var rotation_angle = String(rotation_value);
-			return "r" + rotation_angle + "," + String(center_x) + "," + String(center_y); 
-			}
+		// function rotationstring(value, center_x,center_y){
+		// 	var dm_ratio = 360.0/300.0; 
+		// 	var rotation_value = value*dm_ratio;
+		// 	var rotation_angle = String(rotation_value);
+		// 	return "r" + rotation_angle + "," + String(center_x) + "," + String(center_y); 
+		// 	}
 
 
-		marker.animate({transform:rotationstring(200, 100, 100)},3000);
-		
-
-		</script>
-	</body>
-</html>
+		// marker.animate({transform:rotationstring(200, 100, 100)},3000);
+		// 
