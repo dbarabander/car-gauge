@@ -19,6 +19,7 @@
 				this.cx = startX + size / 2;
 				this.cy = startY + size / 2;
 				this.radius = size * 0.485;
+				this.tickerRadius = this.radius * 0.8;
 			}
 
 			this.setExtrema = function(min,max){
@@ -43,7 +44,6 @@
 				this.totalTickers = this.majorTicker + this.majorTicker * this.minorPerMajor - 1;
 				this.tickersPerSect = this.majorTicker + this.minorPerMajor;
 				this.tickerAngle = 240/totalTickers;
-				this.tickerRadius = this.radius * 0.9;
 			}
 
 			this.setGaugeColor = function(gaugeColor){
@@ -115,7 +115,7 @@
 						];
 					var pathString = "M" + String(point0[0]) + "," + String(point0[1]) + "L" + String(point1[0]) + "," + String(point1[1]) + 
 									 "L" + String(point2[0]) + "," + String(point2[1]) + "L" + String(point3[0]) + "," + String(point3[1]) +
-								 	 "L" + String(point4[0]) + "," + String(point4[1]) + " z";
+								 	 "L" + String(point4[0]) + "," + String(point4[1]) + "z";
 					
 					paper.path(pathString);
 				}
@@ -153,7 +153,7 @@
 						];
 					var pathString = "M" + String(point0[0]) + "," + String(point0[1]) + "L" + String(point1[0]) + "," + String(point1[1]) + 
 								 	 "L" + String(point2[0]) + "," + String(point2[1]) + "L" + String(point3[0]) + "," + String(point3[1]) +
-								 	 "L" + String(point4[0]) + "," + String(point4[1]) + " z";
+								 	 "L" + String(point4[0]) + "," + String(point4[1]) + "z";
 					
 					paper.path(pathString);
 				}
