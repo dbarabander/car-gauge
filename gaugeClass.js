@@ -3,13 +3,19 @@ function Gauge(title, configuration){
 	setAssumed = function(object, att, def){
 		return object.hasOwnProperty(att) ? object[att] : def;
 	}
-	//setAssumed checks whether the property exists in the configuration passed in
-	//and returns a default if not
-	//allows the init function to be very customizable and not require 
-	//as follows: 
-	setAssumedRetain = function(classObject, paramObject, att, def){
-		return paramObject.hasOwnProperty(att) ? paramObject[att] : classObject.hasOwnProperty(att) ? classObject[att]: 
-	}
+	//setAssumed checks whether the property exists in the configuration passed in and returns a default if not
+	//allows the configure function to be very customizable and not require setters
+	//We could make it so that it could retain previous config methods if that is required: 
+	// setAssumed = function(classObject, paramObject, att, def, retainValue){
+	// 	if(retainValue){
+	// 		return paramObject.hasOwnProperty(att) ? paramObject[att] : classObject.hasOwnProperty(att) ? classObject[att]: def;
+	// 	}
+
+	// 	else {
+	// 		return paramObject.hasOwnProperty(att) ? paramObject[att] : def;
+	// 	} 
+	// //retainValue should be a boolean primitive.		
+	// }
 
 	this.configure = function(title, configuration){
 		this.title = title;
